@@ -54,7 +54,7 @@ func load() (*Test, error) {
 func viewHandler(w http.ResponseWriter, r *http.Request) {
 	test, _ := load()
 
-	t, _ := template.ParseFiles("./static/index.html")
+	t, _ := template.ParseFiles("./index.html")
 
 	t.Execute(w, test)
 }
@@ -80,7 +80,7 @@ func addNameHandler(w http.ResponseWriter, r *http.Request) {
 	test.save()
 
 	//reload the webpage to reflect the changes
-	t, _ := template.ParseFiles("./static/index.html")
+	t, _ := template.ParseFiles("./index.html")
 
 	t.Execute(w, test)
 }
