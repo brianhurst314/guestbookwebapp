@@ -10,8 +10,7 @@ import (
 )
 
 /*
-Test ...
-This is a comment
+Test holds the data that will be displayed on the webpage
 */
 type Test struct {
 	Title       string
@@ -19,6 +18,10 @@ type Test struct {
 	Names       []string
 }
 
+
+//save saves data
+//this will need to be updated to accept a string
+//for the file name
 func (t *Test) save() error {
 	filename := "testsave.txt"
 	input, err := json.Marshal(t)
@@ -28,6 +31,8 @@ func (t *Test) save() error {
 	return ioutil.WriteFile(filename, []byte(input), 0600)
 }
 
+
+//load retrieves saved data
 func load() (*Test, error) {
 	filename := "testsave.txt"
 	fileData, err := ioutil.ReadFile(filename)
@@ -44,16 +49,12 @@ func load() (*Test, error) {
 	return &t, nil
 }
 
+
+//each handler will process and display tha proper info in the webpage
 func viewHandler(w http.ResponseWriter, r *http.Request) {
 	test, _ := load()
 
-	//test.Title = "Hello World"
-
-	//test.save()
-
 	t, _ := template.ParseFiles("./static/index.html")
-
-	fmt.Println(test, "This is a Test *********************************")
 
 	t.Execute(w, test)
 }
@@ -71,8 +72,6 @@ func addNameHandler(w http.ResponseWriter, r *http.Request) {
 
 	//load current data from file
 	test, _ := load()
-
-	//test.Title = "This is Working!!!"
 
 	//add newName to the list
 	test.Names = append(test.Names, newName)
