@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Hello World</title>
+    </head>
+    <body>
+        <h1>{{.Title}}</h1>
+        <h3>{{.Instruction}}</h3>
+
+        <form action="/addName/">
+            <input type="text" name="newName">
+            <input type=submit value="Enter">
+            <br>
+            <list>
+                {{range $name := .Names}}
+                <li>{{$name}}</li><br>
+                {{end}}
+            </list>
+        </form>
+    </body>
+</html>
