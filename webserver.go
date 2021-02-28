@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -18,7 +17,6 @@ type Test struct {
 	Names       []string
 }
 
-
 //save saves data
 //this will need to be updated to accept a string
 //for the file name
@@ -30,7 +28,6 @@ func (t *Test) save() error {
 	}
 	return ioutil.WriteFile(filename, []byte(input), 0600)
 }
-
 
 //load retrieves saved data
 func load() (*Test, error) {
@@ -49,12 +46,11 @@ func load() (*Test, error) {
 	return &t, nil
 }
 
-
 //each handler will process and display tha proper info in the webpage
 func viewHandler(w http.ResponseWriter, r *http.Request) {
 	test, _ := load()
 
-	t, _ := template.ParseFiles("./static/index.html")
+	t, _ := template.ParseFiles("./index.html")
 
 	t.Execute(w, test)
 }
@@ -80,7 +76,7 @@ func addNameHandler(w http.ResponseWriter, r *http.Request) {
 	test.save()
 
 	//reload the webpage to reflect the changes
-	t, _ := template.ParseFiles("./static/index.html")
+	t, _ := template.ParseFiles("./index.html")
 
 	t.Execute(w, test)
 }
