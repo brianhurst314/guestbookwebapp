@@ -1,20 +1,123 @@
 <html>
+
     <head>
         <title>Hello World</title>
     </head>
     <body>
-        <h1>{{.Title}}</h1>
-        <h3>{{.Instruction}}</h3>
+        <h1>Guest Book</h1>
+        <h3>Enter a new Name</h3>
 
         <form action="/addName/">
-            <input type="text" name="newName">
+            <label class="nameLabel">First Name</label>
+            <input type="text" name="fName">
+            <br><br>
+
+            <label class="nameLabel">Last Name</label>
+            <input type="text" name="lName">
+            <br>
+
             <input type=submit value="Enter">
             <br>
-            <list>
-                {{range $name := .Names}}
-                <li>{{$name}}</li>
-                {{end}}
-            </list>
         </form>
+            
+        
+            {{range $name := .NamesList}}
+        
+            <div style="margin-top: 5px;">
+                <span>
+                <a href="/deleteName/{{$name.FName}}" >
+                    <input type="button" value="X" class="deleteButton">
+                </a>
+                </span>
+                <span class="namelist">
+                <label>&nbsp{{$name.FName}} {{$name.LName}}</label>
+                </span>
+                <span>
+                <input type="button" value="edit" onclick="openForm('{{$name.FName}}', '{{$name.LName}}', '{{$name.ID}}')" class="editButton">
+                </span>
+            
+            {{end}}
+            </div>
+        
+
+        <div class="form-popup" id="updateForm">
+            <form action="/updateName/">
+                <h1>Update Name</h1>
+
+                <label class="nameLabel">First Name</label>
+                <input type="text" id="updateFName" name="updateFName" value="">
+                <br><br>
+
+                <label class="nameLabel">Last Name</label>
+                <input type="text" id="updateLName" name="updateLName" value="">
+                <br><br>
+
+                <input type="submit" value="Update">
+                <input type="button" value="Cancel" onclick="closeForm()">
+                <input type="text" id="id" name="id" value="">
+            </form>
+        </div>
+        
     </body>
+
+
+    <style>
+        .namelist{
+            display: inline-block;
+            width: 150px;
+        }
+        .nameLabel {
+            padding: 5px;
+        }
+
+        .listItem {
+            list-style-type: none;
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        .deleteButton {
+            color: red;
+            background-color: transparent;
+            padding: 1px;
+            margin-top: 5px;
+            border: none;
+        }
+
+        .editButton {
+            border: none;
+        }
+
+        .form-popup {
+            display: none;
+            position:relative;
+            left: 45%;
+            top: 5%;
+            transform: translate(-50%, 5%);
+            border: 1px solid #2c2c2c;
+            padding: 5px;
+            z-index: 9;
+        }
+
+        #id {
+            visibility: hidden;
+        }
+    </style>
+
+    <script>
+        function closeForm() {
+            document.getElementById("updateForm").style.display = "none";
+        }
+
+        function openForm(fName, lName, id){
+            
+            document.getElementById("id").value = id;
+            document.getElementById("updateFName").value = fName;
+            document.getElementById("updateLName").value = lName;
+            document.getElementById("updateForm").style.display = "inline-block";
+        }
+
+    </script>
 </html>

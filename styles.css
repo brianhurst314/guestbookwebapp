@@ -1,0 +1,30 @@
+.nameLabel {
+    padding: 50px;
+}
+
+.listItem {
+    list-style-type: none;
+}
+
+.deleteButton {
+    color: red;
+}
+
+.editButton {
+    border: none;
+}
+
+.form-popup {
+    display: none;
+    position:relative;
+    left: 45%;
+    top: 5%;
+    transform: translate(-50%, 5%);
+    border: 1px solid #2c2c2c;
+    padding: 5px;
+    z-index: 9;
+}
+
+#oldFName {
+    visibility: hidden;
+}
